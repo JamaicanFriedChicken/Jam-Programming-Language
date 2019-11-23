@@ -1,3 +1,5 @@
+package com.craftinginterpreters.jam;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +9,9 @@ import java.nio.file.Paths;
 import java.util.List; 
 
 
+ // Interpreter's Framework
 public class Jam {
+    static boolean hadError = false;
     public static  void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: jam [script]");
@@ -20,12 +24,13 @@ public class Jam {
     }
 }
 
-
 private static void runFile(String path) throws IOException {
     byte[] bytes = Files.readAllBytes(Paths.get(path));
     run(new String(bytes, Charset.defaultCharset()));
-}
 
+    // Indicates an error in the exit code.
+    if (hadError) System.exit(65);
+}
 
 private static void runPrompt() throws IOException {
     InputStreamReader input = new InputStreamReader(System.in);
@@ -34,6 +39,7 @@ private static void runPrompt() throws IOException {
     for (;;) {
         System.out.print("> ");
         run(reader.readLine);
+        hadError = false;
     }
 }
 
@@ -46,5 +52,18 @@ private static void run(String source) {
         System.out.println(token);
     }
 }
+
+// Error Handling
+static void error(int line, String message) {
+    report(line, "", message);
+}
+
+private static void report(int line, String where, String message) {
+    System.err.println(
+            "[line " + line + "] Error" + where + ": " + message);
+    hadError = true;
+}
+
+
 
 
