@@ -1,4 +1,4 @@
-package com.craftinginterpreters.jam;
+package com.bread.jam;
 
 // Lexeme type
 enum TokenType {
