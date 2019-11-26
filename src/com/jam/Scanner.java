@@ -103,8 +103,16 @@ class Scanner {
         }
     }
 
+    private boolean match(char expected) {
+        if (isAtEnd()) return false;
+        if (source.charAt(current) != expected) return false;
+
+        current++;
+        return true;
+    }
+
     private void identifier() {
-        while(isAlpaNumeric(peek())) advance();
+        while(isAlphaNumeric(peek())) advance();
 
         // See if the identifier is a reserved word.
         String text = source.substring(start, current);
