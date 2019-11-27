@@ -14,7 +14,7 @@ public class GenerateAst {
         }
         String outputDirectory = args[0];
         defineAst(outputDirectory, "Expr", Arrays.asList(
-                "Binary   : Expr left, Token operator, Expre right",
+                "Binary   : Expr left, Token operator, Expr right",
                 "Grouping : Expr expression",
                 "Literal  : Object value",
                 "Unary    : Token operator, Expr right"
@@ -27,7 +27,7 @@ public class GenerateAst {
         String path = outputDirectory + "/" + baseName + ".java";
         PrintWriter writer = new PrintWriter(path, "UTF-8");
 
-        writer.println("package com.jam.jam;");
+        writer.println("package com.jam;");
         writer.println();
         writer.println("import java.util.List;");
         writer.println();
@@ -42,6 +42,10 @@ public class GenerateAst {
             defineType(writer, baseName, className, fields);
         }
 
+        // The base accept() method.
+        writer.println();
+        writer.println("  abstract <R> R accept(Visitor<R> visitor);");
+
         writer.println("}");
         writer.close();
     }
@@ -53,13 +57,13 @@ public class GenerateAst {
                 baseName + " {");
 
         // Constructor
-        writer.println("   " + className + "(" + fieldList + ") {");
+        writer.println("    " + className + "(" + fieldList + ") {");
 
         // Store parameters in fields.
         String[] fields = fieldList.split(", ");
         for(String field: fields) {
             String name = field.split(" ")[1];
-            writer.println("    this." + name + " = " + name + ";");
+            writer.println("      this." + name + " = " + name + ";");
         }
 
         writer.println("    }");
