@@ -1,5 +1,16 @@
 package com.jam;
 
+
+
+// Literals. Numbers, strings, Booleans, and nil.
+//
+// Unary expressions. A prefix ! to perform a logical not, and - to negate a number.
+//
+// Binary expressions. The infix arithmetic (+, -, *, /) a  nd logic (==, !=, <, <=, >, >=) operators we know and love.
+//
+// Parentheses for grouping.
+
+
 // Creates an unambiguous, if ugly, string representation of AST nodes.
 class AstPrinter implements Expr.Visitor<String> {
     String print(Expr expr) {
@@ -13,7 +24,7 @@ class AstPrinter implements Expr.Visitor<String> {
 
     @Override
     public String visitGroupingExpr(Expr.Grouping expr) {
-        return parenthesize("groupd", expr.expression);
+        return parenthesize("group", expr.expression);
     }
 
     @Override
@@ -23,7 +34,7 @@ class AstPrinter implements Expr.Visitor<String> {
     }
 
     @Override
-    public String visitUnaryExpre(Expr.Unary expr) {
+    public String visitUnaryExpr(Expr.Unary expr) {
         return parenthesize(expr.operator.lexeme, expr.right);
     }
 
