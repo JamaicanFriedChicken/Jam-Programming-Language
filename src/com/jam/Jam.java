@@ -10,7 +10,9 @@ import java.util.List;
 
  // Interpreter's Framework
 public class Jam {
+    private static final Interpreter interpreter = new Interpreter();
     static boolean hadError = false;
+    static boolean hadRuntimeError = false;
 
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
@@ -29,6 +31,7 @@ public class Jam {
 
          // Indicates an error in the exit code.
          if (hadError) System.exit(65);
+         if (hadRuntimeError) System.exit(70);
      }
 
      private static void runPrompt() throws IOException {
@@ -53,6 +56,8 @@ public class Jam {
          if (hadError) return;
 
          System.out.println(new AstPrinter().print(expression));
+         interpreter.interpret(expression);
+
 
 //         // For now, just print the tokens.
 //         for (Token token : tokens) {
@@ -77,6 +82,12 @@ public class Jam {
          } else {
              report(token.line, " at '" + token.lexeme + "'", message);
          }
+     }
+
+     static void runtimeError(RuntimeError error) {
+         System.err.println(error.getMessage() +
+                 "\n[line " + error.token.line + "]");
+         hadRuntimeError = true;
      }
 
  }
