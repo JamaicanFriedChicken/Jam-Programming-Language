@@ -58,7 +58,7 @@ public class Jam {
 
 //         System.out.println(new AstPrinter().print(expressions));
          interpreter.interpret(statements);
-         //         interpreter.interpret(expression);
+//                  interpreter.interpret(expression);
 
 
 //         // For now, just print the tokens.

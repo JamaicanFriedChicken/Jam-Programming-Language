@@ -1,7 +1,5 @@
 package com.jam;
 
-
-
 // Literals. Numbers, strings, Booleans, and nil.
 //
 // Unary expressions. A prefix ! to perform a logical not, and - to negate a number.
@@ -20,6 +18,11 @@ class AstPrinter implements Expr.Visitor<String> {
     @Override
     public String visitBinaryExpr(Expr.Binary expr) {
         return parenthesize(expr.operator.lexeme, expr.left, expr.right);
+    }
+
+    @Override
+    public String visitVariableExpr(Expr.Variable expr) {
+        return expr.name.lexeme;
     }
 
     @Override
