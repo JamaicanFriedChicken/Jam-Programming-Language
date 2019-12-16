@@ -1,0 +1,71 @@
+print "two";
+print false;
+print 10 + 30;
+
+var x = 100;
+var y = 3;
+print  x * y;
+
+var a = "global a";
+var b = "global b";
+var c = "global c";
+
+{
+  var a = "outer a";
+  var b = "outer b";
+  {
+    var a = "inner a";
+    print a;
+    print b;
+    print c;
+  }
+  print a;
+  print b;
+  print c;
+}
+
+print a;
+print b;
+print c;
+
+var c = 0;
+var d = 1;
+
+while (c < 10000) {
+  print c;
+  var temp = c;
+  c = d;
+  d = temp + d;
+}
+
+fun sayHello(first, last) {
+    print "Hello, " + first + " " + last + "!";
+}
+
+sayHello("Dear", "Reader");
+
+fun fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 2) + fibonacci(n - 1);
+}
+
+for (var i = 0; i < 20; i = i + 1) {
+  print fibonacci(i);
+}
+
+print "break";
+print "start makeCounter function";
+
+fun makeCounter() {
+  var i = 0;
+  fun count() {
+    i = i + 1;
+    print i;
+  }
+
+  return count;
+}
+
+var counter = makeCounter();
+counter(); // "1".
+counter(); // "2".
